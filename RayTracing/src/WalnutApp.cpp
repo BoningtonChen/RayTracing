@@ -1,4 +1,3 @@
-
 #include <dinput.h>
 
 #include "Walnut/Application.h"
