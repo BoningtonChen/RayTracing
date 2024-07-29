@@ -22,10 +22,12 @@ public:
 	const std::vector<glm::vec3>& GetRayDirections() const { return m_RayDirections; }
 
 	float GetRotationSpeed();
+
 private:
 	void RecalculateProjection();
 	void RecalculateView();
 	void RecalculateRayDirections();
+
 private:
 	glm::mat4 m_Projection{ 1.0f };
 	glm::mat4 m_View{ 1.0f };
