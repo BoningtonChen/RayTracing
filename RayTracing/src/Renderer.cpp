@@ -31,7 +31,11 @@ void Renderer::OnResize(uint32_t width, uint32_t height)
 	}
 	else
 	{
-		m_FinalImage = std::make_shared<Walnut::Image>(width, height, Walnut::ImageFormat::RGBA);
+		m_FinalImage = std::make_shared<Walnut::Image>(
+			width, 
+			height, 
+			Walnut::ImageFormat::RGBA
+		);
 	}
 
 	delete[] m_ImageData;
@@ -82,7 +86,8 @@ void Renderer::Render(const Scene& scene, const Camera& camera)
 						accumulatedColor,
 						glm::vec4(0.0f), glm::vec4(1.0f)
 					);
-					m_ImageData[x + y * m_FinalImage->GetWidth()] = Utils::ConvertToRGBA(accumulatedColor);
+					m_ImageData[x + y * m_FinalImage->GetWidth()] = 
+						Utils::ConvertToRGBA(accumulatedColor);
 				});
 		});
 #else
