@@ -49,6 +49,8 @@ private:
 
 	Settings m_Settings;
 
+	std::vector<uint32_t> m_ImageHorizontalIter, m_ImageVerticalIter;
+
 	const Scene* m_ActiveScene = nullptr;
 	const Camera* m_ActiveCamera = nullptr;
 

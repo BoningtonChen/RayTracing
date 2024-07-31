@@ -56,20 +56,17 @@ public:
 
 		ImGui::Text("Last render: %.3fms", m_LastRenderTime);
 		if (ImGui::Button("Render"))
-		{
 			Render();
-		}
 
 		ImGui::Checkbox("Accumulate", &m_Renderer.GetSettings().Accumulate);
 
 		if (ImGui::Button("Reset"))
-		{
 			m_Renderer.ResetFrameIndex();
-		}
+
 		ImGui::End();
 
-
 		ImGui::Begin("Scene");
+
 		for (size_t i = 0; i < m_Scene.Spheres.size(); i++)
 		{
 			ImGui::PushID(i);
@@ -126,6 +123,7 @@ public:
 		ImGui::End();
 
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0.0f, 0.0f));
+
 		ImGui::Begin("Viewport");
 
 		m_ViewportWidth = ImGui::GetContentRegionAvail().x;
@@ -140,6 +138,7 @@ public:
 			);
 
 		ImGui::End();
+
 		ImGui::PopStyleVar();
 
 		Render();
@@ -160,6 +159,7 @@ private:
 	Renderer m_Renderer;
 	Camera m_Camera;
 	Scene m_Scene;
+
 	uint32_t m_ViewportWidth = 0, m_ViewportHeight = 0;
 
 	float m_LastRenderTime = 0.0f;
