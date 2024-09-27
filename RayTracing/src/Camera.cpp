@@ -116,8 +116,8 @@ void Camera::RecalculateProjection()
 {
 	m_Projection = glm::perspectiveFov(
 			glm::radians(m_VerticalFOV), 
-			(float)m_ViewportWidth, 
-			(float)m_ViewportHeight, 
+			static_cast<float>(m_ViewportWidth), 
+			static_cast<float>(m_ViewportHeight), 
 			m_NearClip, 
 			m_FarClip
 		);
@@ -144,8 +144,8 @@ void Camera::RecalculateRayDirections()
 		for (uint32_t x = 0; x < m_ViewportWidth; x++)
 		{
 			glm::vec2 coord = {
-				(float)x / (float)m_ViewportWidth,
-				(float)y / (float)m_ViewportHeight
+				static_cast<float>(x) / static_cast<float>(m_ViewportWidth),
+				static_cast<float>(y) / static_cast<float>(m_ViewportHeight)
 			};
 			coord = coord * 2.0f - 1.0f; // -1 -> 1
 

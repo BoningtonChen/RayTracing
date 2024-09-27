@@ -102,7 +102,7 @@ public:
 			ImGui::DragInt(
 				"Material", 
 				&sphere.MaterialIndex, 
-				1.0f, 0, (int)m_Scene.Materials.size() - 1
+				1.0f, 0, static_cast<int>(m_Scene.Materials.size()) - 1
 				);
 
 			ImGui::Separator();
@@ -158,7 +158,7 @@ public:
 		if (image)
 			ImGui::Image(
 				image->GetDescriptorSet(),
-			{ (float)image->GetWidth(), (float)image->GetHeight() },
+			{ static_cast<float>(image->GetWidth()), static_cast<float>(image->GetHeight()) },
 				ImVec2(0, 1), ImVec2(1, 0)
 			);
 

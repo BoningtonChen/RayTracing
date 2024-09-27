@@ -8,10 +8,10 @@ namespace Utils
 {
 	static uint32_t ConvertToRGBA(const glm::vec4& color)
 	{
-		uint8_t r = (uint8_t)(color.r * 255.0f);
-		uint8_t g = (uint8_t)(color.g * 255.0f);
-		uint8_t b = (uint8_t)(color.b * 255.0f);
-		uint8_t a = (uint8_t)(color.a * 255.0f);
+		uint8_t r = static_cast<uint8_t>(color.r * 255.0f);
+		uint8_t g = static_cast<uint8_t>(color.g * 255.0f);
+		uint8_t b = static_cast<uint8_t>(color.b * 255.0f);
+		uint8_t a = static_cast<uint8_t>(color.a * 255.0f);
 
 		uint32_t result = (a << 24) | (b << 16) | (g << 8) | r;
 
@@ -30,7 +30,7 @@ namespace Utils
 	{
 		seed = PCG_Hash(seed);
 
-		return (float)seed / (float)std::numeric_limits<uint32_t>::max();
+		return static_cast<float>(seed) / static_cast<float>(std::numeric_limits<uint32_t>::max());
 	}
 
 	static glm::vec3 InUnitSphere(uint32_t& seed)
@@ -104,7 +104,7 @@ void Renderer::Render(const Scene& scene, const Camera& camera)
 					m_AccumulationData[x + y * m_FinalImage->GetWidth()] += color;
 
 					glm::vec4 accumulatedColor = m_AccumulationData[x + y * m_FinalImage->GetWidth()];
-					accumulatedColor /= (float)m_FrameIndex;
+					accumulatedColor /= static_cast<float>(m_FrameIndex);
 
 					accumulatedColor = glm::clamp(
 						accumulatedColor,
@@ -218,7 +218,7 @@ Renderer::HitPayLoad Renderer::TraceRay(const Ray& ray)
 		if (closestT > 0.0f && closestT < hitDistance)
 		{
 			hitDistance = closestT;
-			closestSphere = (int)i;
+			closestSphere = static_cast<int>(i);
 		}
 	}
 
