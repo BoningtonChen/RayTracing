@@ -154,8 +154,7 @@ public:
 		m_ViewportWidth = ImGui::GetContentRegionAvail().x;
 		m_ViewportHeight = ImGui::GetContentRegionAvail().y;
 
-		auto image = m_Renderer.GetFinalImage();
-		if (image)
+		if (auto image = m_Renderer.GetFinalImage())
 			ImGui::Image(
 				image->GetDescriptorSet(),
 			{ static_cast<float>(image->GetWidth()), static_cast<float>(image->GetHeight()) },
