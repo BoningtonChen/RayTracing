@@ -9,6 +9,12 @@ This is a Ray Tracing repository built by C++.
 2. Run `Setup.bat` in the `scripts`folder.
 3.  Open `RayTracing.sln` in your Visual Studio, and run the project.(Recommend running in Release or Dist mode to retrieve better performance).
 
+## Demonstration
+The Ray Tracing project is still under development. \
+Here is the current demonstration of the project.\
+![Ray Tracing Default Example](./Materials/RayTracing-example01.png)
+![Ray Tracing Example](./Materials/RayTracing-example02.png)
+
 ## About WalnutAppTemplate
 - Description\
 This is a simple app template for Walnut - unlike the example within the Walnut repository, this keeps Walnut as an external submodule and is much more sensible for actually building applications. See the Walnut repository for more details.
