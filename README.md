@@ -12,8 +12,8 @@ This is a Ray Tracing repository built by C++.
 ## Demonstration
 The Ray Tracing project is still under development. \
 Here is the current demonstration of the project.\
-![Ray Tracing Default Example](./Materials/RayTracing-example01.png)
-![Ray Tracing Example](./Materials/RayTracing-example02.png)
+![Ray Tracing Default Example](https://github.com/BoningtonChen/RayTracing/blob/master/Materials/RayTracing-example01.png)
+![Ray Tracing Example](https://github.com/BoningtonChen/RayTracing/blob/master/Materials/RayTracing-example02.png)
 
 ## About WalnutAppTemplate
 - Description\
