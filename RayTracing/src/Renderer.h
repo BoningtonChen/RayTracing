@@ -41,7 +41,7 @@ private:
 	};
 	glm::vec4 PerPixel(uint32_t x, uint32_t y);	// RayGen Shader
 
-	HitPayLoad TraceRay(const Ray& ray);
+	HitPayLoad TraceRay(const Ray& ray) const;
 	[[nodiscard]] HitPayLoad ClosestHit(const Ray& ray, float hitDistance, int objectIndex) const;
 	static HitPayLoad Miss(const Ray& ray);
 

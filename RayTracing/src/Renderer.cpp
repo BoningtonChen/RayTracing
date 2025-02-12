@@ -190,7 +190,7 @@ glm::vec4 Renderer::PerPixel(uint32_t x, uint32_t y)
 }
 
 
-Renderer::HitPayLoad Renderer::TraceRay(const Ray& ray)
+Renderer::HitPayLoad Renderer::TraceRay(const Ray& ray) const
 {
 	int closestSphere = -1;
 	float hitDistance = std::numeric_limits<float>::max();
