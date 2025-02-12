@@ -8,17 +8,17 @@
 
 using namespace Walnut;
 
-Camera::Camera(float verticalFOV, float nearClip, float farClip)
+Camera::Camera(const float verticalFOV, const float nearClip, const float farClip)
 	: m_VerticalFOV(verticalFOV), m_NearClip(nearClip), m_FarClip(farClip)
 {
 	m_ForwardDirection = glm::vec3(0, 0, -1);
 	m_Position = glm::vec3(0, 0, 6);
 }
 
-bool Camera::OnUpdate(float ts)
+bool Camera::OnUpdate(const float ts)
 {
-	glm::vec2 mousePos = Input::GetMousePosition();
-	glm::vec2 delta = (mousePos - m_LastMousePosition) * 0.002f;
+	const glm::vec2 mousePos = Input::GetMousePosition();
+	const glm::vec2 delta = (mousePos - m_LastMousePosition) * 0.002f;
 
 	m_LastMousePosition = mousePos;
 
@@ -33,9 +33,9 @@ bool Camera::OnUpdate(float ts)
 	bool moved = false;
 
 	constexpr glm::vec3 upDirection(0.0f, 1.0f, 0.0f);
-	glm::vec3 rightDirection = glm::cross(m_ForwardDirection, upDirection);
+	const glm::vec3 rightDirection = glm::cross(m_ForwardDirection, upDirection);
 
-	float speed = 5.0f;
+	constexpr float speed = 5.0f;
 
 	// Movement
 	if (Input::IsKeyDown(KeyCode::W))
@@ -72,10 +72,10 @@ bool Camera::OnUpdate(float ts)
 	// Rotation
 	if (delta.x != 0.0f || delta.y != 0.0f)
 	{
-		float pitchDelta = delta.y * GetRotationSpeed();
-		float yawDelta = delta.x * GetRotationSpeed();
+		const float pitchDelta = delta.y * GetRotationSpeed();
+		const float yawDelta = delta.x * GetRotationSpeed();
 
-		glm::quat q = glm::normalize(
+		const glm::quat q = glm::normalize(
 			glm::cross(
 				glm::angleAxis(-pitchDelta, rightDirection),
 				glm::angleAxis(-yawDelta, glm::vec3(0.f, 1.0f, 0.0f))
@@ -95,7 +95,7 @@ bool Camera::OnUpdate(float ts)
 	return moved;
 }
 
-void Camera::OnResize(uint32_t width, uint32_t height)
+void Camera::OnResize(const uint32_t width, const uint32_t height)
 {
 	if (width == m_ViewportWidth && height == m_ViewportHeight)
 		return;
@@ -150,7 +150,7 @@ void Camera::RecalculateRayDirections()
 			coord = coord * 2.0f - 1.0f; // -1 -> 1
 
 			glm::vec4 target = m_InverseProjection * glm::vec4(coord.x, coord.y, 1, 1);
-			glm::vec3 rayDirection = glm::vec3(
+			const auto rayDirection = glm::vec3(
 				m_InverseView * glm::vec4(glm::normalize(glm::vec3(target) / target.w), 0)
 			);
 			// World space

@@ -8,20 +8,20 @@ namespace Utils
 {
 	static uint32_t ConvertToRGBA(const glm::vec4& color)
 	{
-		uint8_t r = static_cast<uint8_t>(color.r * 255.0f);
-		uint8_t g = static_cast<uint8_t>(color.g * 255.0f);
-		uint8_t b = static_cast<uint8_t>(color.b * 255.0f);
-		uint8_t a = static_cast<uint8_t>(color.a * 255.0f);
+		const uint8_t r = static_cast<uint8_t>(color.r * 255.0f);
+		const uint8_t g = static_cast<uint8_t>(color.g * 255.0f);
+		const uint8_t b = static_cast<uint8_t>(color.b * 255.0f);
+		const uint8_t a = static_cast<uint8_t>(color.a * 255.0f);
 
-		uint32_t result = (a << 24) | (b << 16) | (g << 8) | r;
+		const uint32_t result = (a << 24) | (b << 16) | (g << 8) | r;
 
 		return result;
 	}
 
-	static uint32_t PCG_Hash(uint32_t input)
+	static uint32_t PCG_Hash(const uint32_t input)
 	{
-		uint32_t state = input * 747796405u + 2891336453u;
-		uint32_t word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
+		const uint32_t state = input * 747796405u + 2891336453u;
+		const uint32_t word = ((state >> ((state >> 28u) + 4u)) ^ state) * 277803737u;
 
 		return (word >> 22u) ^ word;
 	}
@@ -97,9 +97,9 @@ void Renderer::Render(const Scene& scene, const Camera& camera)
 		{
 			std::for_each(
 				m_ImageHorizontalIter.begin(), m_ImageHorizontalIter.end(),
-				[this, y] (uint32_t x)
+				[this, y] (const uint32_t x)
 				{
-					glm::vec4 color = PerPixel(x, y);
+					const glm::vec4 color = PerPixel(x, y);
 
 					m_AccumulationData[x + y * m_FinalImage->GetWidth()] += color;
 
@@ -161,30 +161,30 @@ glm::vec4 Renderer::PerPixel(uint32_t x, uint32_t y)
 	{
 		seed += i;
 
-		Renderer::HitPayLoad payload = TraceRay(ray);
-		if (payload.HitDistance < 0.0f)
+		auto [HitDistance, WorldPosition, WorldNormal, ObjectIndex] = TraceRay(ray);
+		if (HitDistance < 0.0f)
 		{
-			glm::vec3 skyColor = glm::vec3(0.6f, 0.7f, 0.9f);
+			auto skyColor = glm::vec3(0.6f, 0.7f, 0.9f);
 			// light += skyColor * contribution;
 			break;
 		}
 
-		const Sphere& sphere = m_ActiveScene->Spheres[payload.ObjectIndex];
-		const Material& material = m_ActiveScene->Materials[sphere.MaterialIndex];
+		const auto& [Position, Radius, MaterialIndex] = m_ActiveScene->Spheres[ObjectIndex];
+		const Material& material = m_ActiveScene->Materials[MaterialIndex];
 
 		
 		contribution *= material.Albedo;
 		light += material.GetEmission();
 
-		ray.Origin = payload.WorldPosition + payload.WorldNormal * 0.0001f;
+		ray.Origin = WorldPosition + WorldNormal * 0.0001f;
 		// ray.Direction = glm::reflect(
 		// 	 ray.Direction, 
 		//	 payload.WorldNormal + material.Roughness * Walnut::Random::Vec3(-0.5f, 0.5f)
 		//  );
 		if (m_Settings.SlowRandom)
-			ray.Direction = glm::normalize(payload.WorldNormal + Walnut::Random::InUnitSphere());
+			ray.Direction = glm::normalize(WorldNormal + Walnut::Random::InUnitSphere());
 		else
-			ray.Direction = glm::normalize(payload.WorldNormal + Utils::InUnitSphere(seed));
+			ray.Direction = glm::normalize(WorldNormal + Utils::InUnitSphere(seed));
 	}
 	return { light, 1.0f };
 }
@@ -201,21 +201,20 @@ Renderer::HitPayLoad Renderer::TraceRay(const Ray& ray)
 		glm::vec3 origin = ray.Origin - sphere.Position;
 
 		// (bx^2 + by^2)t^2 + 2(axbx + ayby)t + (ax^2 + ay^2 -r^2) = 0
-		float a = glm::dot(ray.Direction, ray.Direction);
-		float b = 2.0f * glm::dot(origin, ray.Direction);
-		float c = glm::dot(origin, origin) - sphere.Radius * sphere.Radius;
+		const float a = glm::dot(ray.Direction, ray.Direction);
+		const float b = 2.0f * glm::dot(origin, ray.Direction);
+		const float c = glm::dot(origin, origin) - sphere.Radius * sphere.Radius;
 
 		// Quadratic formula discriminant: b^2 - 4ac
-		float discriminant = b * b - 4.0f * a * c;
+		const float discriminant = b * b - 4.0f * a * c;
 		if (discriminant < 0.0f)
 			continue;
 
 		// [ -b +- sqrt(discriminant) ] / 2a
 
 		// float t0 = (-b + glm::sqrt(discriminant)) / (2.0f * a);
-		float closestT = (-b - glm::sqrt(discriminant)) / (2.0f * a);
-		
-		if (closestT > 0.0f && closestT < hitDistance)
+
+		if (const float closestT = (-b - glm::sqrt(discriminant)) / (2.0f * a); closestT > 0.0f && closestT < hitDistance)
 		{
 			hitDistance = closestT;
 			closestSphere = static_cast<int>(i);
@@ -228,19 +227,19 @@ Renderer::HitPayLoad Renderer::TraceRay(const Ray& ray)
 	return ClosestHit(ray, hitDistance, closestSphere);
 }
 
-Renderer::HitPayLoad Renderer::ClosestHit(const Ray& ray, float hitDistance, int objectIndex)
+Renderer::HitPayLoad Renderer::ClosestHit(const Ray& ray, const float hitDistance, const int objectIndex) const
 {
 	Renderer::HitPayLoad payload;
 	payload.HitDistance = hitDistance;
 	payload.ObjectIndex = objectIndex;
 
-	const Sphere& closestSphere = m_ActiveScene->Spheres[objectIndex];
+	const auto& [Position, Radius, MaterialIndex] = m_ActiveScene->Spheres[objectIndex];
 
-	glm::vec3 origin = ray.Origin - closestSphere.Position;
+	const glm::vec3 origin = ray.Origin - Position;
 	payload.WorldPosition = origin + ray.Direction * hitDistance;
 	payload.WorldNormal = glm::normalize(payload.WorldPosition);
 
-	payload.WorldPosition += closestSphere.Position;
+	payload.WorldPosition += Position;
 
 	return payload;
 }

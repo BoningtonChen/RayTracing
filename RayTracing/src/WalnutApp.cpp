@@ -13,26 +13,29 @@
 
 using namespace Walnut;
 
-class ExampleLayer : public Walnut::Layer
+class ExampleLayer final : public Walnut::Layer
 {
 public:
 	ExampleLayer()
 		: m_Camera(45.0f, 0.1f, 100.0f)
 	{
 
-		Material& pinkSphere = m_Scene.Materials.emplace_back();
-		pinkSphere.Albedo = { 1.0f, 0.0f, 1.0f };
-		pinkSphere.Roughness = 0.2f;
+		auto& [pinkAlbedo, pinkRoughness, pinkMetallic, pinkEmissionColor, pinkEmissionPower] = m_Scene.Materials.
+			emplace_back();
+		pinkAlbedo = { 1.0f, 0.0f, 1.0f };
+		pinkRoughness = 0.2f;
 
-		Material& blueSphere = m_Scene.Materials.emplace_back();
-		blueSphere.Albedo = { 0.2f, 0.3f, 1.0f };
-		blueSphere.Roughness = 0.1f;
+		auto& [blueAlbedo, blueRoughness, blueMetallic, blueEmissionColor, blueEmissionPower] = m_Scene.Materials.
+			emplace_back();
+		blueAlbedo = { 0.2f, 0.3f, 1.0f };
+		blueRoughness = 0.1f;
 
-		Material& orangeSphere = m_Scene.Materials.emplace_back();
-		orangeSphere.Albedo = { 0.8f, 0.5f, 0.2f };
-		orangeSphere.Roughness = 0.1f;
-		orangeSphere.EmissionColor = orangeSphere.Albedo;
-		orangeSphere.EmissionPower = 2.0f;
+		auto& [orangeAlbedo, orangeRoughness, orangeMetallic, orangeEmissionColor, orangeEmissionPower] = m_Scene.
+			Materials.emplace_back();
+		orangeAlbedo = { 0.8f, 0.5f, 0.2f };
+		orangeRoughness = 0.1f;
+		orangeEmissionColor = orangeAlbedo;
+		orangeEmissionPower = 2.0f;
 
 		{
 			Sphere sphere;
@@ -59,7 +62,7 @@ public:
 		}
 	}
 
-	virtual void OnUpdate(float ts) override
+	virtual void OnUpdate(const float ts) override
 	{
 		if (m_Camera.OnUpdate(ts))
 			m_Renderer.ResetFrameIndex();
@@ -154,7 +157,7 @@ public:
 		m_ViewportWidth = ImGui::GetContentRegionAvail().x;
 		m_ViewportHeight = ImGui::GetContentRegionAvail().y;
 
-		if (auto image = m_Renderer.GetFinalImage())
+		if (const auto image = m_Renderer.GetFinalImage())
 			ImGui::Image(
 				image->GetDescriptorSet(),
 			{ static_cast<float>(image->GetWidth()), static_cast<float>(image->GetHeight()) },
@@ -194,7 +197,7 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 	Walnut::ApplicationSpecification spec;
 	spec.Name = "Ray Tracing";
 
-	Walnut::Application* app = new Walnut::Application(spec);
+	auto app = new Walnut::Application(spec);
 	app->PushLayer<ExampleLayer>();
 	app->SetMenubarCallback([app] ()
 	{

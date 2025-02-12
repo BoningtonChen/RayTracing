@@ -24,7 +24,7 @@ public:
 	void OnResize(uint32_t width, uint32_t height);
 	void Render(const Scene& scene, const Camera& camera);
 
-	std::shared_ptr<Walnut::Image> GetFinalImage() const { return m_FinalImage; }
+	[[nodiscard]] std::shared_ptr<Walnut::Image> GetFinalImage() const { return m_FinalImage; }
 
 	void ResetFrameIndex() { m_FrameIndex = 1; }
 
@@ -42,8 +42,8 @@ private:
 	glm::vec4 PerPixel(uint32_t x, uint32_t y);	// RayGen Shader
 
 	HitPayLoad TraceRay(const Ray& ray);
-	HitPayLoad ClosestHit(const Ray& ray, float hitDistance, int objectIndex);
-	HitPayLoad Miss(const Ray& ray);
+	[[nodiscard]] HitPayLoad ClosestHit(const Ray& ray, float hitDistance, int objectIndex) const;
+	static HitPayLoad Miss(const Ray& ray);
 
 private:
 	std::shared_ptr<Walnut::Image> m_FinalImage;
