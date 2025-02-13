@@ -20,18 +20,18 @@ public:
 		: m_Camera(45.0f, 0.1f, 100.0f)
 	{
 
-		auto& [pinkAlbedo, pinkRoughness, pinkMetallic, pinkEmissionColor, pinkEmissionPower] = m_Scene.Materials.
-			emplace_back();
+		auto& [pinkAlbedo, pinkRoughness, pinkMetallic, pinkEmissionColor, pinkEmissionPower] 
+			= m_Scene.Materials.emplace_back();
 		pinkAlbedo = { 1.0f, 0.0f, 1.0f };
 		pinkRoughness = 0.2f;
 
-		auto& [blueAlbedo, blueRoughness, blueMetallic, blueEmissionColor, blueEmissionPower] = m_Scene.Materials.
-			emplace_back();
+		auto& [blueAlbedo, blueRoughness, blueMetallic, blueEmissionColor, blueEmissionPower] 
+			= m_Scene.Materials.emplace_back();
 		blueAlbedo = { 0.2f, 0.3f, 1.0f };
 		blueRoughness = 0.1f;
 
-		auto& [orangeAlbedo, orangeRoughness, orangeMetallic, orangeEmissionColor, orangeEmissionPower] = m_Scene.
-			Materials.emplace_back();
+		auto& [orangeAlbedo, orangeRoughness, orangeMetallic, orangeEmissionColor, orangeEmissionPower] 
+			= m_Scene.Materials.emplace_back();
 		orangeAlbedo = { 0.8f, 0.5f, 0.2f };
 		orangeRoughness = 0.1f;
 		orangeEmissionColor = orangeAlbedo;
