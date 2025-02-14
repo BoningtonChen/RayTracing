@@ -39,10 +39,14 @@ private:
 
 		int ObjectIndex;
 	};
-	glm::vec4 PerPixel(uint32_t x, uint32_t y);	// RayGen Shader
+	[[nodiscard]] glm::vec4 PerPixel(uint32_t x, uint32_t y) const;	// RayGen Shader
 
-	HitPayLoad TraceRay(const Ray& ray) const;
-	[[nodiscard]] HitPayLoad ClosestHit(const Ray& ray, float hitDistance, int objectIndex) const;
+	[[nodiscard]] HitPayLoad TraceRay(const Ray& ray) const;
+	[[nodiscard]] HitPayLoad ClosestHit(
+		const Ray& ray, 
+		float hitDistance, 
+		int objectIndex
+	) const;
 	static HitPayLoad Miss(const Ray& ray);
 
 private:
@@ -50,7 +54,7 @@ private:
 
 	Settings m_Settings;
 
-	std::vector<uint32_t> m_ImageHorizontalIter, m_ImageVerticalIter;
+	std::vector<uint32_t> m_ImageHorizontalIterator, m_ImageVerticalIterator;
 
 	const Scene* m_ActiveScene = nullptr;
 	const Camera* m_ActiveCamera = nullptr;
