@@ -20,18 +20,33 @@ public:
 		: m_Camera(45.0f, 0.1f, 100.0f)
 	{
 
-		auto& [pinkAlbedo, pinkRoughness, pinkMetallic, pinkEmissionColor, pinkEmissionPower] 
-			= m_Scene.Materials.emplace_back();
+		auto& [
+			pinkAlbedo, 
+			pinkRoughness, 
+			pinkMetallic, 
+			pinkEmissionColor, 
+			pinkEmissionPower
+		] = m_Scene.Materials.emplace_back();
 		pinkAlbedo = { 1.0f, 0.0f, 1.0f };
 		pinkRoughness = 0.2f;
 
-		auto& [blueAlbedo, blueRoughness, blueMetallic, blueEmissionColor, blueEmissionPower] 
-			= m_Scene.Materials.emplace_back();
+		auto& [
+			blueAlbedo, 
+			blueRoughness, 
+			blueMetallic, 
+			blueEmissionColor, 
+			blueEmissionPower
+		] = m_Scene.Materials.emplace_back();
 		blueAlbedo = { 0.2f, 0.3f, 1.0f };
 		blueRoughness = 0.1f;
 
-		auto& [orangeAlbedo, orangeRoughness, orangeMetallic, orangeEmissionColor, orangeEmissionPower] 
-			= m_Scene.Materials.emplace_back();
+		auto& [
+			orangeAlbedo, 
+			orangeRoughness, 
+			orangeMetallic, 
+			orangeEmissionColor, 
+			orangeEmissionPower
+		] = m_Scene.Materials.emplace_back();
 		orangeAlbedo = { 0.8f, 0.5f, 0.2f };
 		orangeRoughness = 0.1f;
 		orangeEmissionColor = orangeAlbedo;
@@ -90,21 +105,21 @@ public:
 		{
 			ImGui::PushID(i);
 
-			Sphere& sphere = m_Scene.Spheres[i];
+			auto& [Position, Radius, MaterialIndex] = m_Scene.Spheres[i];
 
 			ImGui::DragFloat3(
 				"Position", 
-				glm::value_ptr(sphere.Position), 
+				glm::value_ptr(Position), 
 				0.1f
 			);
 			ImGui::DragFloat(
 				"Radius", 
-				&sphere.Radius, 
+				&Radius, 
 				0.1f
 			);
 			ImGui::DragInt(
 				"Material", 
-				&sphere.MaterialIndex, 
+				&MaterialIndex, 
 				1.0f, 0, static_cast<int>(m_Scene.Materials.size()) - 1
 				);
 
@@ -117,29 +132,35 @@ public:
 		{
 			ImGui::PushID(i);
 
-			Material& material = m_Scene.Materials[i];
+			auto& [
+				Albedo, 
+				Roughness, 
+				Metallic, 
+				EmissionColor, 
+				EmissionPower
+			] = m_Scene.Materials[i];
 
 			ImGui::ColorEdit3(
 				"Albedo", 
-				glm::value_ptr(material.Albedo)
+				glm::value_ptr(Albedo)
 			);
 			ImGui::DragFloat(
 				"Roughness", 
-				&material.Roughness, 
+				&Roughness, 
 				0.05f, 0.0f, 1.0f
 			);
 			ImGui::DragFloat(
 				"Metallic",
-				&material.Metallic,
+				&Metallic,
 				0.05f, 0.0f, 1.0f
 			);
 			ImGui::ColorEdit3(
 				"Emission Color", 
-				glm::value_ptr(material.EmissionColor)
+				glm::value_ptr(EmissionColor)
 			);
 			ImGui::DragFloat(
 				"Emission Power",
-				&material.EmissionPower,
+				&EmissionPower,
 				0.05f, 0.0f, std::numeric_limits<float>::max()
 			);
 
@@ -160,7 +181,10 @@ public:
 		if (const auto image = m_Renderer.GetFinalImage())
 			ImGui::Image(
 				image->GetDescriptorSet(),
-			{ static_cast<float>(image->GetWidth()), static_cast<float>(image->GetHeight()) },
+			{
+				static_cast<float>(image->GetWidth()),
+				static_cast<float>(image->GetHeight())
+			},
 				ImVec2(0, 1), ImVec2(1, 0)
 			);
 
@@ -173,7 +197,7 @@ public:
 
 	void Render()
 	{
-		Timer timer;
+		const Timer timer;
 
 		m_Renderer.OnResize(m_ViewportWidth, m_ViewportHeight);
 		m_Camera.OnResize(m_ViewportWidth, m_ViewportHeight);
