@@ -1,4 +1,8 @@
 ﻿# Ray Tracing
+![Palestine Free](https://palestinefree.org/wp-content/uploads/2023/11/Screenshot_2023-11-26_212245-Horizental.png)\
+![Static Badge](https://img.shields.io/badge/License-MIT-blue)
+![Static Badge](https://img.shields.io/badge/Language-C++-green)
+
 
 ## Description
 This is a Ray Tracing repository built by C++.
