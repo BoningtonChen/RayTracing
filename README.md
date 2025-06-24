@@ -1,8 +1,8 @@
 ﻿# Ray Tracing
 ![Free Palestine](https://freepalestinemovement.org/wp-content/uploads/2013/06/banner.jpg)
-![Static Badge](https://img.shields.io/badge/Inspired_by-Cherno-yellow)
-![Static Badge](https://img.shields.io/badge/License-MIT-blue)
-![Static Badge](https://img.shields.io/badge/Language-C++-red)
+![Static Badge](https://img.shields.io/badge/Inspired_by-Cherno-yellow?logo=Github)
+![Static Badge](https://img.shields.io/badge/Language-C++-blue?logo=cplusplus)
+![Static Badge](https://img.shields.io/badge/License-MIT-green)
 
 
 ## Description
