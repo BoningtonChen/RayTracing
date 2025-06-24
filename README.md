@@ -2,7 +2,7 @@
 ![Free Palestine](https://freepalestinemovement.org/wp-content/uploads/2013/06/banner.jpg)
 ![Static Badge](https://img.shields.io/badge/Inspired_by-TheCherno-yellow?logo=Github)
 ![Static Badge](https://img.shields.io/badge/Language-C++-blue?logo=cplusplus)
-![Static Badge](https://img.shields.io/badge/Built_By-Premake-blue?logo=lua)
+![Static Badge](https://img.shields.io/badge/Built_by-Premake-blue?logo=lua)
 ![Static Badge](https://img.shields.io/badge/License-MIT-green)
 
 
