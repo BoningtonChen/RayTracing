@@ -103,7 +103,7 @@ public:
 
 		for (size_t i = 0; i < m_Scene.Spheres.size(); i++)
 		{
-			ImGui::PushID(i);
+			ImGui::PushID(static_cast<int>(i));
 
 			auto& [Position, Radius, MaterialIndex] = m_Scene.Spheres[i];
 
@@ -130,7 +130,7 @@ public:
 
 		for (size_t i = 0; i < m_Scene.Materials.size(); i++)
 		{
-			ImGui::PushID(i);
+			ImGui::PushID(static_cast<int>(i));
 
 			auto& [
 				Albedo, 
@@ -175,8 +175,8 @@ public:
 
 		ImGui::Begin("Viewport");
 
-		m_ViewportWidth = ImGui::GetContentRegionAvail().x;
-		m_ViewportHeight = ImGui::GetContentRegionAvail().y;
+		m_ViewportWidth = static_cast<uint32_t>(ImGui::GetContentRegionAvail().x);
+		m_ViewportHeight = static_cast<uint32_t>(ImGui::GetContentRegionAvail().y);
 
 		if (const auto image = m_Renderer.GetFinalImage())
 			ImGui::Image(
