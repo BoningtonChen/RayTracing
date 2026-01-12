@@ -137,7 +137,9 @@ void Camera::RecalculateView()
 
 void Camera::RecalculateRayDirections()
 {
-	m_RayDirections.resize(m_ViewportWidth * m_ViewportHeight);
+	m_RayDirections.resize(
+		static_cast<size_t>(m_ViewportWidth) * static_cast<size_t>(m_ViewportHeight)
+	);
 
 	for (uint32_t y = 0; y < m_ViewportHeight; y++)
 	{
