@@ -223,7 +223,7 @@ Walnut::Application* Walnut::CreateApplication(int argc, char** argv)
 
 	auto app = new Walnut::Application(spec);
 	app->PushLayer<ExampleLayer>();
-	app->SetMenuBarCallback([app] ()
+			app->SetMenubarCallback([app] ()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
