@@ -14,3 +14,6 @@ bin-int/
 
 # UI configs
 *.ini
+
+# Copilot Assist
+copilot*.md

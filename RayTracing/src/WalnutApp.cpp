@@ -197,7 +197,7 @@ public:
 
 	void Render()
 	{
-		const Timer timer;
+		Timer timer;
 
 		m_Renderer.OnResize(m_ViewportWidth, m_ViewportHeight);
 		m_Camera.OnResize(m_ViewportWidth, m_ViewportHeight);
